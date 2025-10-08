@@ -25,17 +25,3 @@
   text-decoration: line-through;
   color: #999;
 }
-
-.todo-item button {
-  background-color: #358e60;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.todo-item button:hover {
-  background-color: #59c64f;
-}

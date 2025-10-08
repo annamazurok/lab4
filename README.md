@@ -8,26 +8,62 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
 ## Component Tree
-![Compotent tree](images/tree.png)
-The App component acts only as a composition root and does not contain any state.
+![Compotent tree](images/tree2.png)
+App
 
-The TodoList component is responsible for fetching and managing all server-related todo state through the custom useTodos() hook. This hook provides:
+App acts as the composition root and doesn’t manage any own state.
+It only renders the TodoListForm component, which coordinates the entire system.
 
-todos – the current list of todo items
-isLoading – whether data is being fetched or mutated
-error – error message in case of failed API request
-addTodo(title) – adds a new task
-toggleTodo(id) – updates the completion status of a task
-deleteTodo(id) – removes a task
+TodoListForm
 
-The AddTodoForm handles only local input state and calls onAdd(title) to pass the new task upward to TodoList.
+This component uses a custom hook useTodos() to manage all data, loading states, and pagination.
+It passes the retrieved data and methods to child components (TodoList, AddTodoForm, SearchBar, Pagination, LimitSelector).
 
-The TodoItem component receives a single todo object via props and exposes two callback actions:
+The useTodos() hook provides:
+todos — the current list of tasks
+isLoading / error — loading and error states
+addTodo(title) — adds a new task
+editTodoTitle(id, title) — edits a task title
+toggleTodo(id) — toggles completion status
+deleteTodo(id) — deletes a task
+searchTerm, setSearchTerm — for searching
+currentPage, goToNextPage, goToPrevPage, limitPerPage, setLimit, totalPages — for pagination
 
-onToggle(id) – requests completion toggle
-onDelete(id) – requests deletion
+AddTodoForm
 
-The actual data mutation is performed in useTodos, ensuring a clear separation between UI (presentational components) and logic (custom hook).
+Responsible only for the local input field state.
+Calls onAdd(title) to send the new task up to TodoListForm.
+
+SearchBar
+
+Handles only the search query, passed via props (searchTerm, setSearchTerm).
+Does not contain any internal state.
+
+TodoList
+
+Receives todos and action callbacks (deleteTodo, toggleTodo, editTodoTitle).
+Renders a list of TodoItem components.
+Contains no logic — responsible only for display.
+
+TodoItem
+
+Represents a single task.
+Has local state: isEditing (edit mode) and newTitle (temporary text while editing).
+Calls the following callbacks:
+
+onToggle(id) — toggles completion
+onDelete(id) — deletes the task
+editTodoTitle(id, title) — updates the task title
+
+Pagination
+
+Receives currentPage, totalPages, goToNextPage, and goToPrevPage.
+Has no internal state — simply handles page navigation.
+
+LimitSelector
+
+Provides the ability to select the number of items per page (limit, setLimit).
+Contains no internal state
 
 ## React Compiler
 

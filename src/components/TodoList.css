@@ -24,3 +24,36 @@
   text-align: center;
   margin-bottom: 10px;
 }
+
+.todo-list-container select {
+  padding: 5px 10px;
+  font-size: 16px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.todo-list-container input[type="text"] {
+  width: 100%;
+  padding: 8px 12px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.todo-list-container button {
+  cursor: pointer;
+  margin-right: 3px;
+  padding: 6px 12px;
+  border-radius: 5px;
+  border: none;
+  background-color: #9a243d;
+  color: white;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.todo-list-container button:hover {
+  background-color: #ba154f;
+}
